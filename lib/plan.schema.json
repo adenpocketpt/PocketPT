@@ -1,15 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "WorkoutAndDietPlan",
+  "title": "PocketPT Plan Output",
   "type": "object",
   "properties": {
-    "workout_program": {
+    "workout_plan": {
       "type": "object",
-      "description": "Detailed workout plan tailored to the client's goal, fitness level, and equipment.",
+      "description": "Personalized workout program",
       "properties": {
-        "weekly_schedule": {
+        "training_split": { "type": "string" },
+        "weekly_sessions": { "type": "integer" },
+        "sessions": {
           "type": "array",
-          "description": "List of training days with their focus.",
           "items": {
             "type": "object",
             "properties": {
@@ -32,49 +33,42 @@
             },
             "required": ["day", "focus", "exercises"]
           }
-        },
-        "cardio": {
-          "type": "string",
-          "description": "Cardio recommendations (type, frequency, duration, intensity)."
-        },
-        "mobility_and_recovery": {
-          "type": "string",
-          "description": "Stretching, recovery, and lifestyle advice."
         }
       },
-      "required": ["weekly_schedule"]
+      "required": ["training_split", "weekly_sessions", "sessions"]
     },
-    "dietary_guidance": {
+    "nutrition_plan": {
       "type": "object",
-      "description": "Macronutrient and calorie targets with meal guidance.",
+      "description": "Dietary recommendations",
       "properties": {
-        "calories_per_day": { "type": "integer" },
-        "protein_g": { "type": "integer" },
-        "carbs_g": { "type": "integer" },
-        "fat_g": { "type": "integer" },
-        "meal_suggestions": {
+        "calories": { "type": "integer" },
+        "protein_grams": { "type": "integer" },
+        "carbs_grams": { "type": "integer" },
+        "fat_grams": { "type": "integer" },
+        "meals": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "meal": { "type": "string" },
-              "examples": {
-                "type": "array",
-                "items": { "type": "string" }
-              }
+              "meal_name": { "type": "string" },
+              "example_foods": { "type": "array", "items": { "type": "string" } }
             },
-            "required": ["meal", "examples"]
+            "required": ["meal_name", "example_foods"]
           }
-        },
-        "notes": { "type": "string" }
+        }
       },
-      "required": ["calories_per_day", "protein_g", "carbs_g", "fat_g"]
+      "required": ["calories", "protein_grams", "carbs_grams", "fat_grams"]
     },
     "lifestyle_recommendations": {
-      "type": "string",
-      "description": "Extra advice based on client’s job, sleep, stress, etc."
+      "type": "object",
+      "description": "General lifestyle guidance",
+      "properties": {
+        "sleep_hours": { "type": "string" },
+        "hydration": { "type": "string" },
+        "stress_management": { "type": "string" }
+      }
     }
   },
-  "required": ["workout_program", "dietary_guidance"]
+  "required": ["workout_plan", "nutrition_plan"]
 }
-add plan schema
+add plan schema content
