@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Client Intake Questionnaire",
+  "description": "Detailed intake form for PocketPT clients to generate personalized fitness and nutrition plans.",
+  "type": "object",
+  "properties": {
+    "personal_info": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "age": { "type": "integer", "minimum": 12, "maximum": 100 },
+        "gender": { "type": "string", "enum": ["male", "female", "other"] },
+        "height_cm": { "type": "number" },
+        "weight_kg": { "type": "number" },
+        "location": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      },
+      "required": ["age", "gender", "height_cm", "weight_kg"]
+    },
+    "goals": {
+      "type": "object",
+      "properties": {
+        "primary_goal": {
+          "type": "string",
+          "enum": [
+            "fat_loss",
+            "muscle_gain",
+            "strength",
+            "endurance",
+            "recomposition",
+            "general_health",
+            "sport_performance"
+          ]
+        },
+        "secondary_goals": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "fat_loss",
+              "muscle_gain",
+              "strength",
+              "endurance",
+              "recomposition",
+              "general_health",
+              "sport_performance"
+            ]
+          }
+        },
+        "target_weight_kg": { "type": "number" },
+        "timeline_weeks": { "type": "integer" }
+      },
+      "required": ["primary_goal"]
+    },
+    "training": {
+      "type": "object",
+      "properties": {
+        "experience_level": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"]
+        },
+        "preferred_training_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        },
+        "session_length_minutes": {
+          "type": "integer",
+          "minimum": 20,
+          "maximum": 180
+        },
+        "available_equipment": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "dumbbells",
+              "barbell",
+              "cables",
+              "machines",
+              "kettlebells",
+              "resistance_bands",
+              "bodyweight_only",
+              "cardio_machines"
+            ]
+          }
+        },
+        "training_environment": {
+          "type": "string",
+          "enum": ["gym", "home", "outdoor", "hybrid"]
+        },
+        "exercise_limitations": {
+          "type": "string",
+          "description": "Any injuries, joint issues, or exercises to avoid"
+        },
+        "sports": {
+          "type": "string",
+          "description": "If they play or compete in any sports"
+        }
+      },
+      "required": ["experience_level", "preferred_training_days", "training_environment"]
+    },
+    "nutrition": {
+      "type": "object",
+      "properties": {
+        "diet_preference": {
+          "type": "string",
+          "enum": [
+            "no_preference",
+            "vegetarian",
+            "vegan",
+            "pescatarian",
+            "halal",
+            "kosher",
+            "low_carb",
+            "keto",
+            "other"
+          ]
+        },
+        "food_allergies": { "type": "string" },
+        "meal_frequency": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "cooking_skill": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"]
+        },
+        "favorite_foods": { "type": "string" },
+        "disliked_foods": { "type": "string" },
+        "budget_per_week": { "type": "number" }
+      },
+      "required": ["diet_preference", "meal_frequency"]
+    },
+    "lifestyle": {
+      "type": "object",
+      "properties": {
+        "occupation": { "type": "string" },
+        "daily_steps": { "type": "integer" },
+        "sleep_hours": { "type": "number", "minimum": 0, "maximum": 24 },
+        "stress_level": {
+          "type": "string",
+          "enum": ["low", "moderate", "high"]
+        },
+        "alcohol_per_week": { "type": "integer", "minimum": 0 },
+        "smoker": { "type": "boolean" }
+      }
+    },
+    "medical": {
+      "type": "object",
+      "properties": {
+        "conditions": {
+          "type": "string",
+          "description": "Any medical conditions (e.g. PCOS, diabetes, high blood pressure)"
+        },
+        "medications": { "type": "string" },
+        "doctor_clearance": { "type": "boolean" }
+      }
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "coaching_style": {
+          "type": "string",
+          "enum": ["tough_love", "encouraging", "neutral"]
+        },
+        "tracking_style": {
+          "type": "string",
+          "enum": ["detailed", "simple", "visual"]
+        },
+        "communication_preference": {
+          "type": "string",
+          "enum": ["email", "sms", "app_notifications"]
+        }
+      }
+    }
+  },
+  "required": ["personal_info", "goals", "training", "nutrition"]
+}
+add intake schema
